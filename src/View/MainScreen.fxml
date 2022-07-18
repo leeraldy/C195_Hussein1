@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="1000.0" maxWidth="1500.0" prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreen">
+    <children>
+        <Label fx:id="timeZoneLabel" layoutX="3.0" prefHeight="27.0" prefWidth="297.0" text="Current Time Zone">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="572.0" layoutY="10.0" prefHeight="35.0" prefWidth="323.0" text="Appointment Schedule App" AnchorPane.leftAnchor="572.0" AnchorPane.rightAnchor="605.0">
+            <font>
+                <Font name="Gadugi" size="24.0" />
+            </font>
+        </Label>
+        <VBox layoutY="184.0" prefHeight="167.0" prefWidth="276.0">
+            <children>
+                <Button fx:id="newApptButton" mnemonicParsing="false" onAction="#newAppointmentButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Add Appointments">
+                    <VBox.margin>
+                        <Insets left="40.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="editApptButton" mnemonicParsing="false" onAction="#editButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Modify Appointments">
+                    <VBox.margin>
+                        <Insets left="40.0" top="25.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="deleteApptButton" mnemonicParsing="false" onAction="#deleteButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Delete Appointments">
+                    <VBox.margin>
+                        <Insets left="40.0" top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+        <VBox layoutY="405.0" prefHeight="137.0" prefWidth="358.0">
+            <children>
+                <Button fx:id="reportsButton" mnemonicParsing="false" onAction="#viewReportsButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Reports">
+                    <VBox.margin>
+                        <Insets left="40.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logoutButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Logout">
+                    <VBox.margin>
+                        <Insets left="40.0" top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+        <VBox layoutY="558.0" prefHeight="173.0" prefWidth="348.0">
+            <children>
+                <Button fx:id="addCustomerButton" mnemonicParsing="false" onAction="#newCustomerButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Add Customer">
+                    <VBox.margin>
+                        <Insets left="40.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="editCustomerButton" mnemonicParsing="false" onAction="#editCustomerButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Modify Customer">
+                    <VBox.margin>
+                        <Insets left="40.0" top="25.0" />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="deleteCustomerButton" mnemonicParsing="false" onAction="#deleteCustomerButtonHandler" prefHeight="35.0" prefWidth="150.0" text="Delete Customer">
+                    <VBox.margin>
+                        <Insets left="40.0" top="25.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+        <VBox layoutY="-50.0" maxWidth="1250.0" prefHeight="1050.0" prefWidth="1500.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Label text="Appointments">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="150.0" />
+                    </VBox.margin>
+                </Label>
+                <HBox prefHeight="44.0" prefWidth="1291.0">
+                    <children>
+                        <RadioButton fx:id="viewAllRB" mnemonicParsing="false" onAction="#noFilterButtonHandler" text="View All">
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets top="10.0" />
+                            </HBox.margin>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="viewAppointmentTG" />
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="ViewWeeklyRB" mnemonicParsing="false" onAction="#weeklyFilterButtonHandler" text="View Weekly" toggleGroup="$viewAppointmentTG">
+                            <HBox.margin>
+                                <Insets left="25.0" top="10.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </RadioButton>
+                        <RadioButton fx:id="ViewMonthlyRB" mnemonicParsing="false" onAction="#monthlyFilterButtonHandler" text="View Monthly" toggleGroup="$viewAppointmentTG">
+                            <HBox.margin>
+                                <Insets left="25.0" top="10.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="System Bold" size="12.0" />
+                            </font>
+                        </RadioButton>
+                        <DatePicker fx:id="ViewDate" onAction="#onActionViewDate">
+                            <HBox.margin>
+                                <Insets left="725.0" top="5.0" />
+                            </HBox.margin>
+                        </DatePicker>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <ScrollPane maxHeight="300.0" maxWidth="1190.0" prefHeight="300.0" prefWidth="1215.0">
+                    <content>
+                        <TableView fx:id="appointmentTableView" maxHeight="300.0" maxWidth="1175.0" prefHeight="300.0" prefWidth="1175.0">
+                            <columns>
+                                <TableColumn fx:id="apptIDColumn" prefWidth="75.0" text="Appt ID" />
+                                <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+                                <TableColumn fx:id="descColumn" prefWidth="150.0" text="Description" />
+                                <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+                                <TableColumn fx:id="contactColumn" prefWidth="150.0" text="Contact" />
+                                <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Type" />
+                                <TableColumn fx:id="startColumn" prefWidth="200.0" text="Start" />
+                                <TableColumn fx:id="endColumn" prefWidth="200.0" text="End" />
+                                <TableColumn fx:id="customerIDColumn1" prefWidth="75.0" text="Customer ID" />
+                                <TableColumn fx:id="userIDColumn" prefWidth="75.0" text="User ID" />
+                            </columns>
+                        </TableView>
+                    </content>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </ScrollPane>
+                <Label text="Customers">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </Label>
+                <ScrollPane maxHeight="400.0" maxWidth="915.0" prefHeight="300.0" prefWidth="1000.0">
+                    <content>
+                        <TableView fx:id="CustomerTableView" maxWidth="900.0" prefHeight="300.0" prefWidth="1000.0">
+                            <columns>
+                                <TableColumn fx:id="customerIDColumn2" prefWidth="75.0" text="Customer ID" />
+                                <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
+                                <TableColumn fx:id="address1Column" prefWidth="200.0" text="Address 1" />
+                                <TableColumn fx:id="divisionColumn" prefWidth="150.0" text="First Level Division" />
+                                <TableColumn fx:id="postalCodeColumn" prefWidth="75.0" text="Postal Code" />
+                                <TableColumn fx:id="countryColumn" prefWidth="150.0" text="Country" />
+                                <TableColumn fx:id="phoneNumberColumn" prefWidth="100.0" text="Phone Number" />
+                            </columns>
+                        </TableView>
+                    </content>
+                    <VBox.margin>
+                        <Insets top="25.0" />
+                    </VBox.margin>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
