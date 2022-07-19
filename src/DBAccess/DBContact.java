@@ -13,7 +13,7 @@ public class DBContact {
         ObservableList<String> contactNameList = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * from contacts");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from contacts");
 
             ResultSet rs = ps.executeQuery();
 
@@ -35,7 +35,7 @@ public class DBContact {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * from contacts");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from contacts");
 
             ResultSet rs = ps.executeQuery();
 

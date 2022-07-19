@@ -79,7 +79,7 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="FLDivisionComboBox" onAction="#onActionSelectFLD" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="FLDivisionComboBox" onAction="#selectDivision" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="PostalCodeLabel" text="Postal Code:" GridPane.rowIndex="4">
                             <font>
                                 <Font name="System Bold" size="14.0" />
@@ -99,8 +99,8 @@
                 </GridPane>
                 <ButtonBar maxWidth="200.0" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                        <Button fx:id="SaveButton" mnemonicParsing="false" onAction="#onActionSave" style="-fx-font-style: 0;" text="Save" />
-                        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+                        <Button fx:id="SaveButton" mnemonicParsing="false" onAction="#saveButtonHandler" style="-fx-font-style: 0;" text="Save" />
+                        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#cancelButtonHandler" text="Cancel" />
                     </buttons>
                     <VBox.margin>
                         <Insets left="410.0" top="20.0" />

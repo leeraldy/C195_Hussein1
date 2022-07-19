@@ -17,7 +17,7 @@ public class DBCountry {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * from countries");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from countries");
 
             ResultSet rs = ps.executeQuery();
 
@@ -39,7 +39,7 @@ public class DBCountry {
         try {
             String sql = "SELECT * from countries AS c INNER JOIN first_level_divisions AS fld ON c.Country_ID = fld.Country_ID WHERE fld.Division_ID = ?";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement(sql);
             ps.setInt(1, divisionID);
             ResultSet rs = ps.executeQuery();
 

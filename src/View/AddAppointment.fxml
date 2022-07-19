@@ -21,7 +21,7 @@
     <children>
         <VBox prefHeight="800.0" prefWidth="600.0">
             <children>
-                <Label alignment="CENTER" text="Appointment Form">
+                <Label alignment="CENTER" text="Add Appointment">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -49,12 +49,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="AppointmentIDLabel" text="Appointment ID:">
+                        <Label fx:id="AppointmentIDLabel" text="Appointment ID: ">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="AppointmentDTextField" disable="true" maxWidth="100.0" prefHeight="25.0" promptText="Auto-Generated" GridPane.columnIndex="1">
+                        <TextField fx:id="appointmentIDTextField" disable="true" maxWidth="100.0" prefHeight="25.0" promptText="Auto-Generated" GridPane.columnIndex="1">
                             <font>
                                 <Font name="System Italic" size="12.0" />
                             </font>
@@ -77,57 +77,57 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="TitleTextField" maxWidth="300.0" prefHeight="25.0" promptText="Title" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="titleTextField" maxWidth="300.0" prefHeight="25.0" promptText="Title" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="DescriptionLabel" text="Description:" GridPane.rowIndex="4">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="DescriptionTextField" maxWidth="300.0" prefHeight="25.0" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="descriptionTextField" maxWidth="300.0" prefHeight="25.0" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="LocationLabel" text="Location:" GridPane.rowIndex="5">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="LocationTextField" maxWidth="300.0" prefHeight="25.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="locationTextField" maxWidth="300.0" prefHeight="25.0" promptText="Location" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="ContactLabel" text="Contact" GridPane.rowIndex="6">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="ContactComboBox" prefWidth="150.0" promptText="Select Contact" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="contactComboBox" prefWidth="150.0" promptText="Select Contact" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label fx:id="TypeLabel" text="Type:" GridPane.rowIndex="7">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="TypeTextField" maxWidth="100.0" prefHeight="25.0" promptText="Type:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="typeTextField" maxWidth="100.0" prefHeight="25.0" promptText="Type:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label fx:id="StartDateLabel" text="Start Date:" GridPane.rowIndex="8">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <DatePicker fx:id="StartDatePicker" onAction="#onActionSelectStartDate" promptText="Select Start Date" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <DatePicker fx:id="startDatePicker" onAction="#selectStartDate" promptText="Select Start Date" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label fx:id="StartTimeLabel" text="Start Time:" GridPane.rowIndex="9">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="StartTimeComboBox" prefWidth="150.0" promptText="Select Start Time" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="startTimeComboBox" prefWidth="150.0" promptText="Select Start Time" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label fx:id="EndDateLabel" text="End Date:" GridPane.rowIndex="10">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <DatePicker fx:id="EndDatePicker" onAction="#onActionSelectEndDate" promptText="Select End Date" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <DatePicker fx:id="endDatePicker" onAction="#selectEndDate" promptText="Select End Date" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label fx:id="EndTime" text="End Time:" GridPane.rowIndex="11">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="EndTimeComboBox" prefWidth="150.0" promptText="Select End Time" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <ComboBox fx:id="UserIDComboBox" prefWidth="150.0" promptText="Select User" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="CustomerComboBox" prefWidth="150.0" promptText="Select Customer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="endTimeComboBox" prefWidth="150.0" promptText="Select End Time" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <ComboBox fx:id="userIDComboBox" prefWidth="150.0" promptText="Select User" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="customerComboBox" prefWidth="150.0" promptText="Select Customer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                     <VBox.margin>
                         <Insets left="100.0" top="20.0" />
@@ -135,8 +135,8 @@
                 </GridPane>
                 <ButtonBar maxWidth="200.0" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                        <Button fx:id="SaveButton" mnemonicParsing="false" onAction="#saveButtonHandler" style="-fx-font-style: 0;" text="Save" />
-                        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonHandler" style="-fx-font-style: 0;" text="Save" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonHandler" text="Cancel" />
                     </buttons>
                     <VBox.margin>
                         <Insets left="180.0" top="20.0" />

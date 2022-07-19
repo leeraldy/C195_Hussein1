@@ -18,7 +18,7 @@ public class DBUser {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * from users;");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from users;");
 
             ResultSet rs = ps.executeQuery();
 
@@ -37,12 +37,12 @@ public class DBUser {
     }
 
 
-    public static boolean validateUserLogin(String username, String password) throws SQLException {
+    public static boolean validateUserLogin(String userName, String password) throws SQLException {
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT User_Name, Password FROM users WHERE User_Name = ? and Password = ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT User_Name, Password FROM users WHERE User_Name = ? and Password = ?");
 
-            ps.setString(1, username);
+            ps.setString(1, userName);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();

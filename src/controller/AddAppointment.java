@@ -45,20 +45,21 @@ public class AddAppointment implements Initializable {
 //    @FXML Label StartTimeLabel;
 //    @FXML Label EndDateLabel;
 //    @FXML Label EndTime;
-    @FXML TextField AppointmentDTextField;
-    @FXML ComboBox<Integer> UserIDComboBox;
-    @FXML ComboBox<Integer> CustomerComboBox;
-    @FXML TextField TitleTextField;
-    @FXML TextField DescriptionTextField;
-    @FXML TextField LocationTextField;
-    @FXML ComboBox<Integer> ContactComboBox;
-    @FXML TextField TypeTextField;
-    @FXML DatePicker StartDatePicker;
-    @FXML ComboBox<String> StartTimeComboBox;
-    @FXML DatePicker EndDatePicker;
-    @FXML ComboBox<String> EndTimeComboBox;
-    @FXML Button SaveButton;
-    @FXML Button CancelButton;
+    @FXML TextField appointmentIDTextField;
+    @FXML ComboBox<Integer> userIDComboBox;
+    @FXML ComboBox<Integer> customerComboBox;
+    @FXML TextField titleTextField;
+    @FXML TextField descriptionTextField;
+    @FXML TextField locationTextField;
+    @FXML ComboBox<Integer> contactComboBox;
+    @FXML TextField typeTextField;
+    @FXML DatePicker startDatePicker;
+    @FXML ComboBox<String> startTimeComboBox;
+    @FXML DatePicker endDatePicker;
+    @FXML ComboBox<String> endTimeComboBox;
+    @FXML Button saveButton;
+    @FXML Button cancelButton;
+    @FXML Button clearButton;
     @FXML TableView<Customer> CustomerTableView;
     @FXML TableColumn<Customer, Integer> CustomerIDColumn;
     @FXML TableColumn<Customer, String> NameColumn;
@@ -72,22 +73,40 @@ public class AddAppointment implements Initializable {
     private ZoneId zoneIDEST = ZoneId.of("America/New_York");
     private ZoneId zoneIDDef = ZoneId.systemDefault();
 
+    @FXML
+    public void clearButtonHandler() {
+        appointmentIDTextField.clear();
+        userIDComboBox.getSelectionModel().clearSelection();
+        customerComboBox.getSelectionModel().clearSelection();
+        titleTextField.clear();
+        descriptionTextField.clear();
+        locationTextField.clear();
+        contactComboBox.getSelectionModel().clearSelection();
+        titleTextField.clear();
+        startTimeComboBox.getSelectionModel().clearSelection();
+        startDatePicker.getEditor().clear();
+        endTimeComboBox.getSelectionModel().clearSelection();
+        endDatePicker.getEditor().clear();
+
+
+    }
+
 
     @FXML
-    void saveButtonHandler(ActionEvent event) throws SQLException, IOException {
+    public void saveButtonHandler(ActionEvent event) throws SQLException, IOException {
 
         comboBoxAlert();
         try {
             int appointmentID = idNum++;
-            int userID = UserIDComboBox.getValue();
-            int customerID = CustomerComboBox.getValue();
-            String title = TitleTextField.getText();
-            String description = DescriptionTextField.getText();
-            String location = LocationTextField.getText();
-            int contactID = ContactComboBox.getValue();
-            String type = TypeTextField.getText();
-            LocalDateTime start = LocalDateTime.of(StartDatePicker.getValue(), LocalTime.parse(StartTimeComboBox.getSelectionModel().getSelectedItem()));
-            LocalDateTime end = LocalDateTime.of(EndDatePicker.getValue(), LocalTime.parse(EndTimeComboBox.getSelectionModel().getSelectedItem()));;
+            int userID = userIDComboBox.getValue();
+            int customerID = customerComboBox.getValue();
+            String title = titleTextField.getText();
+            String description = descriptionTextField.getText();
+            String location = locationTextField.getText();
+            int contactID = contactComboBox.getValue();
+            String type = typeTextField.getText();
+            LocalDateTime start = LocalDateTime.of(startDatePicker.getValue(), LocalTime.parse(startTimeComboBox.getSelectionModel().getSelectedItem()));
+            LocalDateTime end = LocalDateTime.of(endDatePicker.getValue(), LocalTime.parse(endTimeComboBox.getSelectionModel().getSelectedItem()));;
             ZonedDateTime startUTC = start.atZone(zoneID).withZoneSameInstant(ZoneId.of("UTC"));
             ZonedDateTime endUTC = end.atZone(zoneID).withZoneSameInstant(ZoneId.of("UTC"));
             Timestamp startTS = Timestamp.valueOf(startUTC.toLocalDateTime());
@@ -107,15 +126,15 @@ public class AddAppointment implements Initializable {
                 return;
             };
 
-            ObservableList<Appointment> appointment = DBAppointment.getAppointmentsByCustomerID(CustomerComboBox.getSelectionModel().getSelectedItem());
+            ObservableList<Appointment> appointment = DBAppointment.getAppointmentsByCustomerID(customerComboBox.getSelectionModel().getSelectedItem());
             for (Appointment appt : appointment) {
 
                 LocalDateTime apptSt = appt.getStart();
                 LocalDateTime apptEnd = appt.getEnd();
                 Timestamp apptStTS = Timestamp.valueOf(apptSt);
                 Timestamp apptEndTS = Timestamp.valueOf(apptEnd);
-                LocalDate startD = StartDatePicker.getValue();
-                LocalDate endD = EndDatePicker.getValue();
+                LocalDate startD = startDatePicker.getValue();
+                LocalDate endD = endDatePicker.getValue();
 
                 if (startTS.after(apptStTS) && startTS.before(apptEndTS)
                         || endTS.after(apptStTS) && endTS.before(apptEndTS)
@@ -141,9 +160,9 @@ public class AddAppointment implements Initializable {
                 }
             }
 
-            if (AppointmentDTextField.getText().isEmpty() || TitleTextField.getText().isEmpty()
-                    || DescriptionTextField.getText().isEmpty() || LocationTextField.getText().isEmpty()
-                    || TypeTextField.getText().isEmpty()) {
+            if (appointmentIDTextField.getText().isEmpty() || titleTextField.getText().isEmpty()
+                    || descriptionTextField.getText().isEmpty() || locationTextField.getText().isEmpty()
+                    || typeTextField.getText().isEmpty()) {
                 //appointmentAlertsEN(4);
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("WARNING");
@@ -169,10 +188,10 @@ public class AddAppointment implements Initializable {
 
     public void comboBoxAlert() {
 
-        if (UserIDComboBox.getSelectionModel().isEmpty() || CustomerComboBox.getSelectionModel().isEmpty()
-                || ContactComboBox.getSelectionModel().isEmpty() || StartDatePicker.getValue() == null
-                || StartTimeComboBox.getSelectionModel().isEmpty() || EndDatePicker.getValue() == null
-                || EndTimeComboBox.getSelectionModel().isEmpty()) {
+        if (userIDComboBox.getSelectionModel().isEmpty() || customerComboBox.getSelectionModel().isEmpty()
+                || contactComboBox.getSelectionModel().isEmpty() || startDatePicker.getValue() == null
+                || startTimeComboBox.getSelectionModel().isEmpty() || endDatePicker.getValue() == null
+                || endTimeComboBox.getSelectionModel().isEmpty()) {
             //appointmentAlertsEN(4);
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING");
@@ -196,7 +215,7 @@ public class AddAppointment implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        UserIDComboBox.setItems(userIDCombo);
+        userIDComboBox.setItems(userIDCombo);
     }
 
 
@@ -210,10 +229,10 @@ public class AddAppointment implements Initializable {
                     customerIDCombo.add(cust.getCustomerID());
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        CustomerComboBox.setItems(customerIDCombo);
+        customerComboBox.setItems(customerIDCombo);
     }
 
 
@@ -226,26 +245,26 @@ public class AddAppointment implements Initializable {
                 contactCombo.add(cont.getContactID());
             }
         }
-        ContactComboBox.setItems(contactCombo);
+        contactComboBox.setItems(contactCombo);
     }
 
     @FXML
-    void onActionSelectStartDate(ActionEvent event) {
+    public void selectStartDate(ActionEvent event) {
 
     }
 
     @FXML
-    void onActionSelectEndDate(ActionEvent event) {
+    public void selectEndDate(ActionEvent event) {
 
     }
 
 
     @FXML
-    void onActionCancel(ActionEvent event) throws IOException {
+    public void cancelButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
-        stage.setTitle("Main");
+        stage.setTitle("MainScreen");
         stage.show();
     }
 
@@ -267,17 +286,17 @@ public class AddAppointment implements Initializable {
         selectContact();
 
         ObservableList<String> time = FXCollections.observableArrayList();
-        LocalTime start = LocalTime.of(7, 0);
-        LocalTime end = LocalTime.of(23, 0);
+        LocalTime start = LocalTime.of(8, 0);
+        LocalTime end = LocalTime.of(22, 0);
 
         time.add(start.toString());
         while (start.isBefore(end)) {
             start = start.plusMinutes(15);
             time.add(start.toString());
         }
-        StartTimeComboBox.setItems(time);
-        EndTimeComboBox.setItems(time);
-        AppointmentDTextField.setText(Integer.toString(idNum));
+        startTimeComboBox.setItems(time);
+        endTimeComboBox.setItems(time);
+        appointmentIDTextField.setText(Integer.toString(idNum));
 
     }
 

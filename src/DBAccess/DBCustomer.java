@@ -16,7 +16,7 @@ public class DBCustomer {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * FROM customers AS c INNER JOIN first_level_divisions AS fld ON c.Division_ID = fld.Division_ID INNER JOIN countries AS co ON co.Country_ID = fld.Country_ID");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM customers AS c INNER JOIN first_level_divisions AS fld ON c.Division_ID = fld.Division_ID INNER JOIN countries AS co ON co.Country_ID = fld.Country_ID");
 
             ResultSet rs = ps.executeQuery();
 
@@ -44,7 +44,7 @@ public class DBCustomer {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (? , ?, ?, ?, ?)");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (? , ?, ?, ?, ?)");
             ps.setString(1, customerName);
             ps.setString(2, address);
             ps.setString(3, postalCode);
@@ -63,7 +63,7 @@ public class DBCustomer {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("UPDATE customers SET Customer_name = ? , Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("UPDATE customers SET Customer_name = ? , Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?");
             ps.setString(1, customerName);
             ps.setString(2, address);
             ps.setString(3, postalCode);
@@ -83,7 +83,7 @@ public class DBCustomer {
     public static boolean deleteCustomer(int customerID) throws SQLException {
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE from customers WHERE Customer_ID=?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("DELETE from customers WHERE Customer_ID=?");
 
             ps.setInt(1, customerID);
 

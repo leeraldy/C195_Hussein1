@@ -30,59 +30,25 @@ public class AddCustomer implements Initializable {
     @FXML Label Address1Label;
     @FXML Label FLDivisionLabel;
     @FXML Label PostalCodeLabel;
-
     @FXML Label CountryLabel;
-
     @FXML Label PhoneNumberLabel;
-
-    @FXML
-     TextField CustomerIDTextField;
-
-    @FXML
-     TextField NameTextField;
-
-    @FXML
-     TextField Address1TextField;
-
-    @FXML
-     ComboBox<Division> FLDivisionComboBox;
-
-    @FXML
-     TextField PostalCodeTextField;
-
-    @FXML
-     ComboBox<Country> CountryComboBox;
+    @FXML TextField CustomerIDTextField;
+    @FXML TextField NameTextField;
+    @FXML TextField Address1TextField;
+    @FXML ComboBox<Division> FLDivisionComboBox;
+    @FXML TextField PostalCodeTextField;
+    @FXML ComboBox<Country> CountryComboBox;
     @FXML TextField PhoneNumberTextField;
-
-    @FXML
-     Button SaveButton;
-
-    @FXML
-     Button CancelButton;
-
-    @FXML
-     TableView<Customer> CustomerTableView;
-
-    @FXML
-     TableColumn<Customer, Integer> CustomerIDColumn;
-
-    @FXML
-     TableColumn<Customer, String> NameColumn;
-
-    @FXML
-     TableColumn<Customer, String> Address1Column;
-
-    @FXML
-     TableColumn<Customer, String> FLDivisionColumn;
-
-    @FXML
-     TableColumn<Customer, String> PostalCodeColumn;
-
-    @FXML
-     TableColumn<Customer, String> CountryColumn;
-
-    @FXML
-     TableColumn<Customer, String> PhoneNumberColumn;
+    @FXML Button SaveButton;
+    @FXML Button CancelButton;
+    @FXML TableView<Customer> CustomerTableView;
+    @FXML TableColumn<Customer, Integer> CustomerIDColumn;
+    @FXML TableColumn<Customer, String> NameColumn;
+    @FXML TableColumn<Customer, String> Address1Column;
+    @FXML TableColumn<Customer, String> FLDivisionColumn;
+    @FXML TableColumn<Customer, String> PostalCodeColumn;
+    @FXML TableColumn<Customer, String> CountryColumn;
+    @FXML TableColumn<Customer, String> PhoneNumberColumn;
 
      ObservableList<Customer> setCustomers;
 
@@ -90,7 +56,7 @@ public class AddCustomer implements Initializable {
 
 
     @FXML
-    void onActionSave(ActionEvent event) throws IOException {
+    public void saveButtonHandler(ActionEvent event) throws IOException {
         int customerID = id++;
         String customerName = NameTextField.getText();
         String address = Address1TextField.getText();
@@ -120,25 +86,25 @@ public class AddCustomer implements Initializable {
 
 
     @FXML
-    void onActionSelectCountry(ActionEvent event) throws SQLException {
+    public void selectCountry(ActionEvent event) throws SQLException {
 
         int countryID = CountryComboBox.getValue().getCountryID();
         try {
             FLDivisionComboBox.setItems(DBDivision.getDivisionsByCountryID(countryID));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
 
     @FXML
-    void onActionSelectFLD(ActionEvent event) throws SQLException {
+    public void selectDivision(ActionEvent event) throws SQLException {
 
     }
 
 
     @FXML
-    void onActionCancel(ActionEvent event) throws IOException {
+    public void cancelButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         stage.setScene(new Scene(scene));

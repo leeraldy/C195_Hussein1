@@ -18,7 +18,7 @@ public class DBAppointment {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * FROM appointments AS a LEFT OUTER JOIN contacts as c ON a.Contact_ID = c.Contact_ID WHERE Start between ? AND ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM appointments AS a LEFT OUTER JOIN contacts as c ON a.Contact_ID = c.Contact_ID WHERE Start between ? AND ?");
 
             ResultSet rs = ps.executeQuery();
 
@@ -34,8 +34,8 @@ public class DBAppointment {
                 int customerID = rs.getInt("Customer_ID");
                 int userID = rs.getInt("User_ID");
 
-                Appointment appointments = new Appointment(appointmentID, title, description, location, contactID, type, start, end, customerID, userID);
-                appointmentList.add(appointments);
+                Appointment appts = new Appointment(appointmentID, title, description, location, contactID, type, start, end, customerID, userID);
+                appointmentList.add(appts);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,9 +46,9 @@ public class DBAppointment {
 
     public static ObservableList<Appointment> getAppointmentsByWeek() throws SQLException {
 
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        ObservableList<Appointment> weeklyAppointmentList = FXCollections.observableArrayList();
 
-        PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * FROM appointments WHERE YEARWEEK(`Start`, 1) = YEARWEEK(CURDATE(), 1);");
+        PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM appointments WHERE YEARWEEK(`Start`, 1) = YEARWEEK(CURDATE(), 1);");
 
 
         try {
@@ -68,23 +68,21 @@ public class DBAppointment {
                 int userID = rs.getInt("User_ID");
 
                 Appointment appointmentsByWeek = new Appointment(appointmentID, title, description, location, contactID, type, start, end, customerID, userID);
-                appointmentList.add(appointmentsByWeek);
+                weeklyAppointmentList.add(appointmentsByWeek);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return appointmentList;
+        return weeklyAppointmentList;
     }
 
 
     public static ObservableList<Appointment> getAppointmentsByMonth() throws SQLException {
 
-        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+        ObservableList<Appointment> monthlyAppointmentList = FXCollections.observableArrayList();
 
 
-        String sql = "SELECT * from appointments WHERE Start >= LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 MONTH AND Start < LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY;";
-
-        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from appointments WHERE Start >= LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY - INTERVAL 1 MONTH AND Start < LAST_DAY(CURRENT_DATE) + INTERVAL 1 DAY;");
 
 
         try {
@@ -104,12 +102,12 @@ public class DBAppointment {
                 int userID = rs.getInt("User_ID");
 
                 Appointment appointmentsByMonth = new Appointment(appointmentID, title, description, location, contactID, type, start, end, customerID, userID);
-                appointmentList.add(appointmentsByMonth);
+                monthlyAppointmentList.add(appointmentsByMonth);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return appointmentList;
+        return monthlyAppointmentList;
     }
 
 
@@ -117,9 +115,8 @@ public class DBAppointment {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
         try {
-            String sql = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID = c.Contact_ID WHERE Customer_ID = ?;";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID = c.Contact_ID WHERE Customer_ID = ?;");
             ps.setInt(1, customerID);
 
             ResultSet rs = ps.executeQuery();
@@ -152,7 +149,7 @@ public class DBAppointment {
         try {
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement(sql);
 
             ps.setString(1, title);
             ps.setString(2, description);
@@ -175,9 +172,8 @@ public class DBAppointment {
                                              Integer customerID, Integer userID, Integer contactID, Integer appointmentID) throws SQLException {
 
         try {
-            String sql = "UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("UPDATE appointments SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?;");
 
             ps.setString(1, title);
             ps.setString(2, description);
@@ -193,13 +189,13 @@ public class DBAppointment {
 
             ps.executeUpdate();
             if (ps.getUpdateCount() > 0) {
-                System.out.println(ps.getUpdateCount() + " rows affected.");
+                System.out.println("Rows affected: " + ps.getUpdateCount());
             } else {
                 System.out.println("No change occurred.");
             }
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
         }
         return false;
 
@@ -209,7 +205,7 @@ public class DBAppointment {
     public static boolean deleteAppointments(int appointmentID) throws SQLException {
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE from appointments WHERE Appointment_ID = ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("DELETE from appointments WHERE Appointment_ID = ?");
 
             ps.setInt(1, appointmentID);
 
@@ -244,7 +240,7 @@ public class DBAppointment {
             StringBuilder reportAppointmentEachContact = new StringBuilder("Contact ID | Appointment ID | Customer ID | Title | Type | Description | Start | End\n");
             String sql = "SELECT Contact_ID, Appointment_ID, Customer_ID, Title, Type, Description, Start, End FROM appointments ORDER BY Contact_ID ";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
@@ -274,7 +270,7 @@ public class DBAppointment {
             reportAppointmentPerTypeMonth.append("\n");
             String sql = "SELECT MONTHNAME(start) as Month, Type, COUNT(*)  as Amount FROM appointments GROUP BY MONTH(start), type";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -299,7 +295,7 @@ public class DBAppointment {
 
             String sql = "SELECT Location, Type, COUNT(*)  as Amount FROM appointments GROUP BY Location, type";
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

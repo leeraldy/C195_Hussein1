@@ -12,9 +12,9 @@ public class Main extends Application{
 
     public static void main(String[] args) {
         // TODO code application logic here
-        DBConnection.openConnection();
+        DBConnection.startConnection();
         launch(args);
-        DBConnection.closeConnection();
+        DBConnection.closedConnection();
     }
 
 

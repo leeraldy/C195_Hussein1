@@ -4,13 +4,13 @@ package model;
 public class User {
 
     private int userID;
-    private String username;
+    private String userName;
     private String password;
 
 
-    public User(int userID, String username, String password) {
+    public User(int userID, String userName, String password) {
         this.userID = userID;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
     }
 
@@ -26,12 +26,12 @@ public class User {
 
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
 

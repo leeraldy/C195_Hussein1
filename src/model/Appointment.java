@@ -17,9 +17,9 @@ public class Appointment {
     private LocalDateTime end;
     private int customerID;
     private int userID;
-    //private String contactName;
 
 
+    //Constructor
 
     public Appointment(int appointmentID, String title, String description, String location, int contactID, String type, LocalDateTime start, LocalDateTime end, int customerID, int userID) {
         this.appointmentID = appointmentID;

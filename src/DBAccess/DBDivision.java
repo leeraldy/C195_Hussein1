@@ -17,7 +17,7 @@ public class DBDivision {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * from first_level_divisions");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from first_level_divisions");
 
             ResultSet rs = ps.executeQuery();
 
@@ -42,7 +42,7 @@ public class DBDivision {
 
         try {
 
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT * from first_level_divisions WHERE Country_ID  = ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from first_level_divisions WHERE Country_ID  = ?");
             ps.setInt(1, countryID);
 
             ResultSet rs = ps.executeQuery();
@@ -65,7 +65,7 @@ public class DBDivision {
         String divisionName = null;
 
         try {
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement("SELECT Division FROM first_level_divisions WHERE Division_ID = ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT Division FROM first_level_divisions WHERE Division_ID = ?");
 
             ResultSet rs = ps.executeQuery();
 

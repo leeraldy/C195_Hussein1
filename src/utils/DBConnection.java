@@ -2,6 +2,7 @@ package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 
 public class DBConnection {
@@ -15,10 +16,12 @@ public class DBConnection {
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
-    public static Connection conn;  // Connection Interface
+    public static Connection conn;
 
 
-    public static void openConnection()
+    public DBConnection() {}
+
+    public static void startConnection()
     {
         try {
             Class.forName(driver); // Locate Driver
@@ -31,19 +34,18 @@ public class DBConnection {
         }
     }
 
-    public static Connection getConnection(){
+    public static Connection dbConn(){
         return conn;
     }
 
 
-    public static void closeConnection() {
+    public static void closedConnection() {
         try {
             conn.close();
+            System.out.println("Connection disconnected");
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            //System.out.println("Error:" + e.getMessage());
-            //do nothing
         }
     }
 }
