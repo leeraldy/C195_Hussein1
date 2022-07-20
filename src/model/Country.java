@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Country class: Manages country objects
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class Country {
 

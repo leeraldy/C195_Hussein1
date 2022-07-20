@@ -32,42 +32,42 @@ public class AddCustomer implements Initializable {
     @FXML Label PostalCodeLabel;
     @FXML Label CountryLabel;
     @FXML Label PhoneNumberLabel;
-    @FXML TextField CustomerIDTextField;
-    @FXML TextField NameTextField;
-    @FXML TextField Address1TextField;
-    @FXML ComboBox<Division> FLDivisionComboBox;
-    @FXML TextField PostalCodeTextField;
-    @FXML ComboBox<Country> CountryComboBox;
-    @FXML TextField PhoneNumberTextField;
+    @FXML TextField customerIDTextField;
+    @FXML TextField customerNameTextField;
+    @FXML TextField addressTextField;
+    @FXML ComboBox<Division> divisionComboBox;
+    @FXML TextField postalCodeTextField;
+    @FXML ComboBox<Country> countryComboBox;
+    @FXML TextField phoneNumberTextField;
     @FXML Button SaveButton;
     @FXML Button CancelButton;
-    @FXML TableView<Customer> CustomerTableView;
-    @FXML TableColumn<Customer, Integer> CustomerIDColumn;
-    @FXML TableColumn<Customer, String> NameColumn;
-    @FXML TableColumn<Customer, String> Address1Column;
-    @FXML TableColumn<Customer, String> FLDivisionColumn;
-    @FXML TableColumn<Customer, String> PostalCodeColumn;
-    @FXML TableColumn<Customer, String> CountryColumn;
-    @FXML TableColumn<Customer, String> PhoneNumberColumn;
+//    @FXML TableView<Customer> CustomerTableView;
+//    @FXML TableColumn<Customer, Integer> CustomerIDColumn;
+//    @FXML TableColumn<Customer, String> NameColumn;
+//    @FXML TableColumn<Customer, String> Address1Column;
+//    @FXML TableColumn<Customer, String> FLDivisionColumn;
+//    @FXML TableColumn<Customer, String> PostalCodeColumn;
+//    @FXML TableColumn<Customer, String> CountryColumn;
+//    @FXML TableColumn<Customer, String> PhoneNumberColumn;
 
      ObservableList<Customer> setCustomers;
 
-    public static int id;
+//    public static int id;
 
 
     @FXML
     public void saveButtonHandler(ActionEvent event) throws IOException {
-        int customerID = id++;
-        String customerName = NameTextField.getText();
-        String address = Address1TextField.getText();
-        String postalCode = PostalCodeTextField.getText();
-        String phoneNumber = PhoneNumberTextField.getText();
-        Division flDivision = FLDivisionComboBox.getValue();
+//        int customerID = id++;
+        String customerName = customerNameTextField.getText();
+        String address = addressTextField.getText();
+        String postalCode = postalCodeTextField.getText();
+        String phoneNumber = phoneNumberTextField.getText();
+        Division flDivision = divisionComboBox.getValue();
         int divisionID = flDivision.getDivisionID();
-        Country country = CountryComboBox.getValue();
+        Country country = countryComboBox.getValue();
 
-        if (CustomerIDTextField.getText().isEmpty() || NameTextField.getText().isEmpty() || Address1TextField.getText().isEmpty() || FLDivisionComboBox.getSelectionModel().isEmpty()
-                || PostalCodeTextField.getText().isEmpty() || CountryComboBox.getSelectionModel().isEmpty() || PhoneNumberTextField.getText().isEmpty()) {
+        if (customerIDTextField.getText().isEmpty() || customerNameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || divisionComboBox.getSelectionModel().isEmpty()
+                || postalCodeTextField.getText().isEmpty() || countryComboBox.getSelectionModel().isEmpty() || phoneNumberTextField.getText().isEmpty()) {
             //appointmentAlertsEN(4);
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING");
@@ -88,9 +88,9 @@ public class AddCustomer implements Initializable {
     @FXML
     public void selectCountry(ActionEvent event) throws SQLException {
 
-        int countryID = CountryComboBox.getValue().getCountryID();
+        int countryID = countryComboBox.getValue().getCountryID();
         try {
-            FLDivisionComboBox.setItems(DBDivision.getDivisionsByCountryID(countryID));
+            divisionComboBox.setItems(DBDivision.getDivisionsByCountryID(countryID));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,22 +117,22 @@ public class AddCustomer implements Initializable {
     public void initialize(URL url, ResourceBundle rb
     ) {
         // TODO
-        CustomerIDTextField.setText(Integer.toString(id));
+//        customerIDTextField.setText(Integer.toString(id));
 
         //This is to populate the customer table view.
         try {
             setCustomers = DBCustomer.getAllCustomers();
 
-            CustomerTableView.setItems(setCustomers);
-            CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-            NameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-            Address1Column.setCellValueFactory(new PropertyValueFactory<>("address"));
-            FLDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
-            PostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-            CountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-            PhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+//            CustomerTableView.setItems(setCustomers);
+//            CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+//            NameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+//            Address1Column.setCellValueFactory(new PropertyValueFactory<>("address"));
+//            FLDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
+//            PostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+//            CountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+//            PhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-            CountryComboBox.setItems(DBCountry.getAllCountries());
+            countryComboBox.setItems(DBCountry.getAllCountries());
 
         } catch (Exception e) {
             e.printStackTrace();

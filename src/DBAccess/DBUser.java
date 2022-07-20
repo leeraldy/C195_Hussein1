@@ -8,6 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.User;
 
+/**
+ * DBUser class: Manages all users activities in DB
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class DBUser {
 
@@ -18,7 +24,7 @@ public class DBUser {
 
         try {
 
-            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from users;");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM users;");
 
             ResultSet rs = ps.executeQuery();
 
@@ -40,7 +46,7 @@ public class DBUser {
     public static boolean validateUserLogin(String userName, String password) throws SQLException {
         try {
 
-            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT User_Name, Password FROM users WHERE User_Name = ? and Password = ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM users WHERE User_Name = ? and Password = ?");
 
             ps.setString(1, userName);
             ps.setString(2, password);

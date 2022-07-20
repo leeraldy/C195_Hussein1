@@ -1,8 +1,14 @@
 package model;
 
+
 import java.time.LocalDateTime;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+/**
+ * Appointment class: Manages appointment objects
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 
 public class Appointment {

@@ -1,6 +1,11 @@
 package model;
 
 
+/**
+ * User class: Manages all user objects
+ *
+ * @author Hussein Coulibaly
+ */
 public class User {
 
     private int userID;

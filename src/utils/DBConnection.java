@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
+/**
+ * @author Hussein Coulibaly
+ */
+
 public class DBConnection {
 
 
@@ -34,10 +38,13 @@ public class DBConnection {
         }
     }
 
+    // Establishes DB connection
+
     public static Connection dbConn(){
         return conn;
     }
 
+    // Closing connection
 
     public static void closedConnection() {
         try {

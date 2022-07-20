@@ -51,7 +51,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Label>
-                        <TextField fx:id="CustomerIDTextField" disable="true" maxWidth="100.0" prefHeight="25.0" promptText="Auto-Generated" GridPane.columnIndex="1">
+                        <TextField fx:id="customerIDTextField" disable="true" maxWidth="100.0" prefHeight="25.0" promptText="Auto-Generated" GridPane.columnIndex="1">
                             <font>
                                 <Font name="System Italic" size="12.0" />
                             </font>
@@ -61,37 +61,37 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="NameTextField" maxWidth="300.0" prefHeight="25.0" promptText="Full Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="customerNameTextField" maxWidth="300.0" prefHeight="25.0" promptText="Full Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="Address1Label" text="Address Line 1: " GridPane.rowIndex="2">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="Address1TextField" maxWidth="300.0" prefHeight="25.0" promptText="Address Line 1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="addressTextField" maxWidth="300.0" prefHeight="25.0" promptText="Address Line 1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="CountryLabel" text="Country:" GridPane.rowIndex="5">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="CountryComboBox" onAction="#onActionSelectCountry" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="countryComboBox" onAction="#selectCountry" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="FLDivisionLabel" text="First Level Division:" GridPane.rowIndex="3">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <ComboBox fx:id="FLDivisionComboBox" onAction="#selectDivision" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="divisionComboBox" onAction="#selectDivision" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="PostalCodeLabel" text="Postal Code:" GridPane.rowIndex="4">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="PostalCodeTextField" maxWidth="100.0" prefHeight="25.0" promptText="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="postalCodeTextField" maxWidth="100.0" prefHeight="25.0" promptText="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="PhoneNumberLabel" text="Phone Number:" GridPane.rowIndex="6">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="PhoneNumberTextField" maxWidth="100.0" prefHeight="25.0" promptText="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="phoneNumberTextField" maxWidth="100.0" prefHeight="25.0" promptText="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     </children>
                     <VBox.margin>
                         <Insets left="360.0" top="20.0" />

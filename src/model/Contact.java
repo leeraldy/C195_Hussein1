@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Contact class: Manages all contact objects
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class Contact {
 

@@ -45,7 +45,7 @@ public class AddAppointment implements Initializable {
 //    @FXML Label StartTimeLabel;
 //    @FXML Label EndDateLabel;
 //    @FXML Label EndTime;
-    @FXML TextField appointmentIDTextField;
+//    @FXML TextField appointmentIDTextField;
     @FXML ComboBox<Integer> userIDComboBox;
     @FXML ComboBox<Integer> customerComboBox;
     @FXML TextField titleTextField;
@@ -60,14 +60,14 @@ public class AddAppointment implements Initializable {
     @FXML Button saveButton;
     @FXML Button cancelButton;
     @FXML Button clearButton;
-    @FXML TableView<Customer> CustomerTableView;
-    @FXML TableColumn<Customer, Integer> CustomerIDColumn;
-    @FXML TableColumn<Customer, String> NameColumn;
+//    @FXML TableView<Customer> CustomerTableView;
+//    @FXML TableColumn<Customer, Integer> CustomerIDColumn;
+//    @FXML TableColumn<Customer, String> NameColumn;
 
      ObservableList<Customer> setCustomers;
 
 
-    public static int idNum;
+//    public static int idNum;
 
     private ZoneId zoneID = ZoneId.of("UTC");
     private ZoneId zoneIDEST = ZoneId.of("America/New_York");
@@ -75,7 +75,7 @@ public class AddAppointment implements Initializable {
 
     @FXML
     public void clearButtonHandler() {
-        appointmentIDTextField.clear();
+//        appointmentIDTextField.clear();
         userIDComboBox.getSelectionModel().clearSelection();
         customerComboBox.getSelectionModel().clearSelection();
         titleTextField.clear();
@@ -97,7 +97,7 @@ public class AddAppointment implements Initializable {
 
         comboBoxAlert();
         try {
-            int appointmentID = idNum++;
+//            int appointmentID = idNum++;
             int userID = userIDComboBox.getValue();
             int customerID = customerComboBox.getValue();
             String title = titleTextField.getText();
@@ -160,8 +160,7 @@ public class AddAppointment implements Initializable {
                 }
             }
 
-            if (appointmentIDTextField.getText().isEmpty() || titleTextField.getText().isEmpty()
-                    || descriptionTextField.getText().isEmpty() || locationTextField.getText().isEmpty()
+            if (titleTextField.getText().isEmpty() || descriptionTextField.getText().isEmpty() || locationTextField.getText().isEmpty()
                     || typeTextField.getText().isEmpty()) {
                 //appointmentAlertsEN(4);
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -274,9 +273,9 @@ public class AddAppointment implements Initializable {
         try {
             setCustomers = DBCustomer.getAllCustomers();
 
-            CustomerTableView.setItems(setCustomers);
-            CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-            NameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+//            CustomerTableView.setItems(setCustomers);
+//            CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+//            NameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -296,7 +295,7 @@ public class AddAppointment implements Initializable {
         }
         startTimeComboBox.setItems(time);
         endTimeComboBox.setItems(time);
-        appointmentIDTextField.setText(Integer.toString(idNum));
+//        appointmentIDTextField.setText(Integer.toString(idNum));
 
     }
 

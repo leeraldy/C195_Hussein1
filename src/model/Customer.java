@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Customer class: Manages all customer objects
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class Customer {
 

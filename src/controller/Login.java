@@ -225,7 +225,7 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        ResourceBundle resourceb = ResourceBundle.getBundle("main/Lang", Locale.getDefault());
+        ResourceBundle resourceb = ResourceBundle.getBundle("language/login", Locale.getDefault());
 
         if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
             ZoneId z = ZoneId.systemDefault();
