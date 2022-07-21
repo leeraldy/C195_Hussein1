@@ -2,6 +2,7 @@ package DBAccess;
 
 import utils.DBConnection;
 import model.Country;
+
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ public class DBCountry {
 
         try {
 
-            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * from countries");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM countries");
 
             ResultSet rs = ps.executeQuery();
 
@@ -33,13 +34,33 @@ public class DBCountry {
         return countryList;
     }
 
+    public static Country getCountryNameByID(String countryName) throws SQLException {
+
+        try{
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM countries WHERE Country_ID = ?");
+            ps.setString(1, countryName);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Country countries = new Country(
+                        rs.getInt("Country_ID"),
+                        rs.getString("Country"));
+
+                return countries;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static Country getCountryByDivisionID(int divisionID) throws SQLException {
 
         try {
-            String sql = "SELECT * from countries AS c INNER JOIN first_level_divisions AS fld ON c.Country_ID = fld.Country_ID WHERE fld.Division_ID = ?";
 
-            PreparedStatement ps = DBConnection.dbConn().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM countries WHERE fld.Division_ID = ?");
             ps.setInt(1, divisionID);
             ResultSet rs = ps.executeQuery();
 

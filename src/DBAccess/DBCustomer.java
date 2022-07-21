@@ -6,6 +6,10 @@ import javafx.collections.ObservableList;
 import model.Customer;
 import java.sql.*;
 
+/**
+ * DBCustomer handles all customer queries
+ */
+
 
 public class DBCustomer {
 
@@ -16,7 +20,7 @@ public class DBCustomer {
 
         try {
 
-            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM customers AS c INNER JOIN first_level_divisions AS fld ON c.Division_ID = fld.Division_ID INNER JOIN countries AS co ON co.Country_ID = fld.Country_ID");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM customers");
 
             ResultSet rs = ps.executeQuery();
 
@@ -30,8 +34,8 @@ public class DBCustomer {
                 String phoneNumber = rs.getString("Phone");
                 int divisionID = rs.getInt("Division_ID");
 
-                Customer cust = new Customer(customerID, customerName, address, division, postalCode, country, phoneNumber, divisionID);
-                customerList.add(cust);
+                Customer cx = new Customer(customerID, customerName, address, division, postalCode, country, phoneNumber, divisionID);
+                customerList.add(cx);
             }
         } catch (SQLException e) {
             e.printStackTrace();
