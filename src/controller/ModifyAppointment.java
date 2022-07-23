@@ -31,6 +31,12 @@ import model.Contact;
 import model.Customer;
 import model.User;
 
+/**
+ * ModifyAppointment Class: Manages any changes of the saves appointments
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class ModifyAppointment implements Initializable {
 
@@ -68,14 +74,29 @@ public class ModifyAppointment implements Initializable {
 
     private Appointment getAppointment;
 
-    int index;
+//    int index;
 
 
-    public static int idNum;
+//    public static int idNum;
 
     private ZoneId zoneID = ZoneId.of("UTC");
     private ZoneId zoneIDEST = ZoneId.of("America/New_York");
     private ZoneId zoneIDDef = ZoneId.of(TimeZone.getDefault().getID());
+
+    @FXML
+    public void clearButtonHandler(ActionEvent event) {
+        contactComboBox.getItems().clear();
+        userIDComboBox.getItems().clear();
+        customerComboBox.getItems().clear();
+        titleTextField.clear();
+        descriptionTextField.clear();
+        locationTextField.clear();
+        startDatePicker.getEditor().clear();
+        endDatePicker.getEditor().clear();
+        startTimeComboBox.getItems().clear();
+        endTimeComboBox.getItems().clear();
+
+    }
 
 
     public Appointment getAppointment(Appointment selectAppt) {
@@ -187,7 +208,7 @@ public class ModifyAppointment implements Initializable {
                 DBAppointment.updateAppointments(title, description, location, type, startTS, endTS, customerID, userID, contactID, appointmentID);
 
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+                Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.setTitle("Main");
                 stage.show();
@@ -270,11 +291,10 @@ public class ModifyAppointment implements Initializable {
 
     }
 
-
     @FXML
-    public void clearButtonHandler(ActionEvent event) throws IOException {
+    public void cancelButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Main");
         stage.show();
@@ -309,7 +329,7 @@ public class ModifyAppointment implements Initializable {
         }
         startTimeComboBox.setItems(time);
         endTimeComboBox.setItems(time);
-        appointmentIDTextField.setText(Integer.toString(idNum));
+//        appointmentIDTextField.setText(Integer.toString(idNum));
 
     }
 

@@ -40,20 +40,20 @@
                         <Insets left="75.0" top="25.0" />
                     </VBox.margin>
                     <children>
-                        <RadioButton fx:id="Report1RB" mnemonicParsing="false" onAction="#reportOne" text="Total Number Of Customer Appointments By Type And Month">
+                        <RadioButton fx:id="ReportOne" mnemonicParsing="false" onAction="#reportOne" text="Total Number Of Customer Appointments By Type And Month">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                             <toggleGroup>
-                                <ToggleGroup fx:id="viewReportTG" />
+                                <ToggleGroup fx:id="viewReport" />
                             </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="Report2RB" mnemonicParsing="false" onAction="#reportTwo" text="Schedule For Each Contact In The Organization" toggleGroup="$viewReportTG" GridPane.rowIndex="1">
+                        <RadioButton fx:id="ReportTwo" mnemonicParsing="false" onAction="#reportTwo" text="Schedule For Each Contact In The Organization" toggleGroup="$viewReport" >
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </RadioButton>
-                        <RadioButton fx:id="Report3RB" mnemonicParsing="false" onAction="#reportThree" text="Total Number Of Appointment Types For Each Location" toggleGroup="$viewReportTG" GridPane.rowIndex="2">
+                        <RadioButton fx:id="ReportThree" mnemonicParsing="false" onAction="#reportThree" text="Total Number Of Appointment Types For Each Location" toggleGroup="$viewReport" >
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -62,7 +62,7 @@
                 </GridPane>
                 <ButtonBar maxWidth="200.0" prefHeight="40.0" prefWidth="150.0">
                     <buttons>
-                        <Button fx:id="GenerateButton" mnemonicParsing="false" onAction="#generateRport" text="Generate" />
+                        <Button fx:id="GenerateButton" mnemonicParsing="false" onAction="#generateReport" text="Generate" />
                         <Button fx:id="ResetButton" mnemonicParsing="false" onAction="#resetReport" text="Reset" />
                         <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonHandler" text="Cancel" />
                     </buttons>

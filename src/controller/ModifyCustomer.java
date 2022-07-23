@@ -22,6 +22,12 @@ import model.Country;
 import model.Customer;
 import model.Division;
 
+/**
+ * ModifyCustomer Class: Manages any changes of the customer in DB
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class ModifyCustomer implements Initializable {
 
@@ -47,63 +53,69 @@ public class ModifyCustomer implements Initializable {
 //    private Label PhoneNumberLabel;
 
     @FXML private TextField customerIDTextField;
+    @FXML private ComboBox<Country> countryComboBox;
+    @FXML private ComboBox<Division> divisionComboBox;
     @FXML private TextField nameTextField;
     @FXML private TextField addressTextField;
-    @FXML private ComboBox<Division> divisionComboBox;
-    @FXML private TextField PostalCodeTextField;
-    @FXML private ComboBox<Country> CountryComboBox;
-    @FXML private TextField PhoneNumberTextField;
+    @FXML private TextField postalCodeTextField;
+    @FXML private TextField phoneNumberTextField;
+
+//    @FXML private TableView<Customer> customerTableView;
+//    @FXML private TableColumn<Customer, Integer> customerIDColumn;
+//    @FXML private TableColumn<Customer, String> nameColumn;
+//    @FXML private TableColumn<Customer, String> addressColumn;
+//    @FXML private TableColumn<Customer, String> divisionColumn;
+//    @FXML private TableColumn<Customer, String> postalCodeColumn;
+//    @FXML private TableColumn<Customer, String> countryColumn;
+//    @FXML private TableColumn<Customer, String> phoneNumberColumn;
     @FXML private Button saveButton;
     @FXML private Button backButton;
     @FXML private Button clearButton;
-    @FXML private TableView<Customer> CustomerTableView;
-    @FXML private TableColumn<Customer, Integer> CustomerIDColumn;
-    @FXML private TableColumn<Customer, String> NameColumn;
-    @FXML private TableColumn<Customer, String> Address1Column;
-    @FXML private TableColumn<Customer, String> FLDivisionColumn;
-    @FXML private TableColumn<Customer, String> PostalCodeColumn;
-    @FXML private TableColumn<Customer, String> CountryColumn;
-    @FXML private TableColumn<Customer, String> PhoneNumberColumn;
 
     private ObservableList<Customer> setCustomers;
 
 
-    public static int id;
+//    public static int id;
 
 
     public Customer getCustomer(Customer customer) throws SQLException {
         Customer getCustomer = customer;
         Country c = DBCountry.getCountryByDivisionID(getCustomer.getDivisionID());
         ObservableList<Country> countries = DBCountry.getAllCountries();
-        ObservableList<Division> flDivision = DBDivision.getDivisionsByCountryID(c.getCountryID());
+        ObservableList<Division> division = DBDivision.getDivisionsByCountryID(c.getCountryID());
 
         customerIDTextField.setText(String.valueOf(getCustomer.getCustomerID()));
         nameTextField.setText(getCustomer.getCustomerName());
         addressTextField.setText(getCustomer.getAddress());
-        PostalCodeTextField.setText(getCustomer.getPostalCode());
+        postalCodeTextField.setText(getCustomer.getPostalCode());
 
-        //lambda 2 to set the first level divisions for the modify page. Lambda 1 is in the MainScreenController.java at line 370.
-        divisionComboBox.setItems(flDivision);
-        flDivision.forEach(FirstLevelDivisions -> {
+        //lambda 2
+        divisionComboBox.setItems(division);
+        division.forEach(FirstLevelDivisions -> {
             if(FirstLevelDivisions.getDivisionID() == customer.getDivisionID())
                 divisionComboBox.setValue(FirstLevelDivisions);
         });
 
-        CountryComboBox.setItems(countries);
-        CountryComboBox.setValue(c);
-        PhoneNumberTextField.setText(getCustomer.getPhoneNumber());
+        countryComboBox.setItems(countries);
+        countryComboBox.setValue(c);
+        phoneNumberTextField.setText(getCustomer.getPhoneNumber());
 
         return getCustomer;
     }
 
-
+    @FXML
     public void clearButtonHandler(ActionEvent event) {
-
+        countryComboBox.getSelectionModel().clearSelection();
+        divisionComboBox.getSelectionModel().clearSelection();
+        nameTextField.clear();
+        addressTextField.clear();
+        postalCodeTextField.clear();
+        phoneNumberTextField.clear();
     }
 
     @FXML
     public void selectCountryHandler(ActionEvent event) {
-        int countryID = CountryComboBox.getValue().getCountryID();
+        int countryID = countryComboBox.getValue().getCountryID();
         try {
             divisionComboBox.setItems(DBDivision.getDivisionsByCountryID(countryID));
         } catch (SQLException e) {
@@ -113,7 +125,7 @@ public class ModifyCustomer implements Initializable {
 
 
     @FXML
-    void onActionSelectFLD(ActionEvent event) {
+    void selectDivision(ActionEvent event) {
 
     }
 
@@ -123,14 +135,14 @@ public class ModifyCustomer implements Initializable {
         int customerID = Integer.parseInt(customerIDTextField.getText());
         String customerName = nameTextField.getText();
         String address = addressTextField.getText();
-        String postalCode = PostalCodeTextField.getText();
-        String phoneNumber = PhoneNumberTextField.getText();
+        String postalCode = postalCodeTextField.getText();
+        String phoneNumber = phoneNumberTextField.getText();
         Division flDivision = divisionComboBox.getValue();
         int divisionID = flDivision.getDivisionID();
-        Country country = CountryComboBox.getValue();
+        Country country = countryComboBox.getValue();
 
         if (customerIDTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || divisionComboBox.getSelectionModel().isEmpty()
-                || PostalCodeTextField.getText().isEmpty() || CountryComboBox.getSelectionModel().isEmpty() || PhoneNumberTextField.getText().isEmpty()) {
+                || postalCodeTextField.getText().isEmpty() || countryComboBox.getSelectionModel().isEmpty() || phoneNumberTextField.getText().isEmpty()) {
             //appointmentAlertsEN(4);
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING");
@@ -141,7 +153,7 @@ public class ModifyCustomer implements Initializable {
 
         DBCustomer.updateCustomer(customerName, address, postalCode, phoneNumber, divisionID, customerID);
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Main");
         stage.show();
@@ -151,7 +163,7 @@ public class ModifyCustomer implements Initializable {
     @FXML
     public void backButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Main");
         stage.show();
@@ -164,16 +176,16 @@ public class ModifyCustomer implements Initializable {
         try {
             setCustomers = DBCustomer.getAllCustomers();
 
-            CustomerTableView.setItems(setCustomers);
-            CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-            NameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-            Address1Column.setCellValueFactory(new PropertyValueFactory<>("address"));
-            FLDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
-            PostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-            CountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-            PhoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+//            customerTableView.setItems(setCustomers);
+//            customerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+//            nameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+//            addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+//            divisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
+//            postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+//            countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+//            phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-            CountryComboBox.setItems(DBCountry.getAllCountries());
+            countryComboBox.setItems(DBCountry.getAllCountries());
         } catch (Exception e) {
             e.printStackTrace();
         }

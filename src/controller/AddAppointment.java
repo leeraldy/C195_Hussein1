@@ -30,6 +30,12 @@ import model.Contact;
 import model.Customer;
 import model.User;
 
+/**
+ * AddAppoitment Class: Manages new appointment
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class AddAppointment implements Initializable {
 
@@ -46,8 +52,7 @@ public class AddAppointment implements Initializable {
 //    @FXML Label EndDateLabel;
 //    @FXML Label EndTime;
 //    @FXML TextField appointmentIDTextField;
-    @FXML ComboBox<Integer> userIDComboBox;
-    @FXML ComboBox<Integer> customerComboBox;
+
     @FXML TextField titleTextField;
     @FXML TextField descriptionTextField;
     @FXML TextField locationTextField;
@@ -57,9 +62,12 @@ public class AddAppointment implements Initializable {
     @FXML ComboBox<String> startTimeComboBox;
     @FXML DatePicker endDatePicker;
     @FXML ComboBox<String> endTimeComboBox;
+    @FXML ComboBox<Integer> userIDComboBox;
+    @FXML ComboBox<Integer> customerComboBox;
     @FXML Button saveButton;
     @FXML Button cancelButton;
     @FXML Button clearButton;
+
 //    @FXML TableView<Customer> CustomerTableView;
 //    @FXML TableColumn<Customer, Integer> CustomerIDColumn;
 //    @FXML TableColumn<Customer, String> NameColumn;
@@ -88,7 +96,6 @@ public class AddAppointment implements Initializable {
         endTimeComboBox.getSelectionModel().clearSelection();
         endDatePicker.getEditor().clear();
 
-
     }
 
 
@@ -97,7 +104,7 @@ public class AddAppointment implements Initializable {
 
         comboBoxAlert();
         try {
-//            int appointmentID = idNum++;
+//          int appointmentID = idNum++;
             int userID = userIDComboBox.getValue();
             int customerID = customerComboBox.getValue();
             String title = titleTextField.getText();
@@ -173,7 +180,7 @@ public class AddAppointment implements Initializable {
                 DBAppointment.addAppointments(title, description, location, type, startTS, endTS, customerID, userID, contactID);
 
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+                Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.setTitle("Main");
                 stage.show();
@@ -261,7 +268,7 @@ public class AddAppointment implements Initializable {
     @FXML
     public void cancelButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("MainScreen");
         stage.show();

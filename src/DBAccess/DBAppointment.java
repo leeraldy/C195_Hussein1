@@ -8,6 +8,10 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * DBAppointment class: Manages Appointments in the DB
+ */
+
 
 public class DBAppointment {
 
@@ -18,7 +22,8 @@ public class DBAppointment {
 
         try {
 
-            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT * FROM appointments AS a LEFT OUTER JOIN contacts as c ON a.Contact_ID = c.Contact_ID WHERE Start between ? AND ?");
+            PreparedStatement ps = DBConnection.dbConn().prepareStatement("SELECT Appointment_ID, Title, Description, Location, contacts.Contact_ID, contacts.Contact_Name, Type, Start, End, customers.Customer_ID, users.User_ID \" +\n" +
+                    "                    \"FROM appointments, contacts, customers, users WHERE appointments.Customer_ID = customers.Customer_ID AND appointments.User_ID = users.User_ID AND appointments.Contact_ID = contacts.Contact_ID");
 
             ResultSet rs = ps.executeQuery();
 

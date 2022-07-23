@@ -28,6 +28,12 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import model.Appointment;
 
+/**
+ * Login Class: Manages the user login
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class Login implements Initializable {
 
@@ -47,6 +53,9 @@ public class Login implements Initializable {
     public void loginButtonHandler(ActionEvent event) throws IOException, SQLException {
         System.out.println("Login Button was pressed");
 
+        String userName = userNameTextField.getText();
+        String password = passwordTextField.getText();
+
 
         if (userNameTextField.getText().isEmpty()) {
             if (Locale.getDefault().toString().equals("en_US")) {
@@ -62,8 +71,8 @@ public class Login implements Initializable {
                 //loginScreenErrorsFR(1);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERREUR");
-                alert.setHeaderText("Erreur : le champ du nom d'utilisateur est vide");
-                alert.setContentText("Merci d'entrer un nom d'utilisateur");
+                alert.setHeaderText("Champ identifiant est vide");
+                alert.setContentText("Veuillez entrer un identifiant valide");
                 alert.showAndWait();
                 return;
             }
@@ -73,7 +82,7 @@ public class Login implements Initializable {
                 //loginScreenErrorsEN(2);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
-                alert.setHeaderText("Error: Password Field Is Blank");
+                alert.setHeaderText("Password Field Is Blank");
                 alert.setContentText("Please enter a password");
                 alert.showAndWait();
                 return;
@@ -82,24 +91,24 @@ public class Login implements Initializable {
                 //loginScreenErrorsFR(2);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERREUR");
-                alert.setHeaderText("Erreur : le champ du mot de passe est vide");
-                alert.setContentText("Merci d'entrer un mot de passe");
+                alert.setHeaderText("Le champ du mot de passe est vide");
+                alert.setContentText("Merci d'entrer un mot de passe valide");
                 alert.showAndWait();
                 return;
             }
         }
-        String user = userNameTextField.getText();
-        String password = passwordTextField.getText();
+//        String userName = userNameTextField.getText();
+//        String password = passwordTextField.getText();
 
-        boolean loginSuccess = DBUser.validateUserLogin(user, password);
+        boolean loginSuccess = DBUser.validateUserLogin(userName, password);
 
         if (loginSuccess) {
             appointmentIn15mins();
-            loginFileSuccess(user);
+            loginFileSuccess(userName);
             try {
 
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+                Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.setTitle("Main");
                 stage.show();
@@ -107,13 +116,13 @@ public class Login implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            loginFileFail(user);
+            loginFileFail(userName);
             if (Locale.getDefault().toString().equals("en_US")) {
                 //loginScreenErrorsEN(3);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR");
-                alert.setHeaderText("Error: Incorrect Username And/Or Password");
-                alert.setContentText("Please try again.");
+                alert.setHeaderText("Incorrect Username And/Or Password");
+                alert.setContentText("Unable to authenticate user, please try again!");
                 alert.showAndWait();
                 return;
             }
@@ -121,7 +130,7 @@ public class Login implements Initializable {
                 //loginScreenErrorsFR(3);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERREUR");
-                alert.setHeaderText("Erreur : Nom d'utilisateur et/ou mot de passe incorrects");
+                alert.setHeaderText("Nom d'utilisateur et/ou mot de passe incorrect");
                 alert.setContentText("Veuillez essayer à nouveau.");
                 alert.showAndWait();
                 return;
@@ -133,6 +142,7 @@ public class Login implements Initializable {
     @FXML
     public void clearButtonHandler(ActionEvent event) throws IOException {
         System.out.println("Clear Button was pressed");
+
         userNameTextField.clear();
         passwordTextField.clear();
     }
@@ -148,7 +158,7 @@ public class Login implements Initializable {
         ObservableList<Appointment> appointments = DBAppointment.getAllAppointments();
         ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
 
-        if (appointments != null) {
+        if (upcomingAppointments != null) {
             for (Appointment apptIn15 : appointments) {
                 LocalDateTime ldtNow = LocalDateTime.now();
                 LocalDateTime ldtIn15 = ldtNow.plusMinutes(15);

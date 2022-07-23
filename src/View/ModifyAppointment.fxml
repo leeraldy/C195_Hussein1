@@ -135,8 +135,9 @@
                 </GridPane>
                 <ButtonBar maxWidth="200.0" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onActionSave" style="-fx-font-style: 0;" text="Save" />
-                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonHandler" text="Cancel" />
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonHandler" style="-fx-font-style: 0;" text="Save" />
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearButtonHandler" text="Clear" />
+                        <Button fx:id="cancelButton" layoutX="506.0" layoutY="224.0" mnemonicParsing="false" onAction="#cancelButtonHandler" prefHeight="25.0" prefWidth="80.0" text="Back" />
                     </buttons>
                     <VBox.margin>
                         <Insets left="180.0" top="20.0" />

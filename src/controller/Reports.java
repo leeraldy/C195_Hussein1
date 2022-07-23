@@ -16,13 +16,19 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+/**
+ * AddAppointment Controller Class: Handles the control logic for all reports
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class Reports implements Initializable {
 
-    @FXML private RadioButton Report1RB;
-    @FXML private RadioButton Report2RB;
-    @FXML private RadioButton Report3RB;
-    @FXML private ToggleGroup viewReportTG;
+    @FXML private RadioButton ReportOne;
+    @FXML private RadioButton ReportTwo;
+    @FXML private RadioButton ReportThree;
+    @FXML private ToggleGroup viewReport;
     @FXML private Button GenerateButton;
     @FXML private Button ResetButton;
     @FXML private Button backButton;
@@ -34,7 +40,7 @@ public class Reports implements Initializable {
         System.out.println("Back Button was pressed");
 
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Main");
         stage.show();
@@ -42,13 +48,13 @@ public class Reports implements Initializable {
 
     @FXML
     public void generateReport(ActionEvent event) {
-        if (Report1RB.isSelected()) {
+        if (ReportOne.isSelected()) {
             ReportTextArea.setText(DBAppointment.reportAppointmentTypeMonth());
         }
-        if (Report2RB.isSelected()) {
+        if (ReportTwo.isSelected()) {
             ReportTextArea.setText(DBAppointment.reportAppointmentContact());
         }
-        if (Report3RB.isSelected()) {
+        if (ReportThree.isSelected()) {
             ReportTextArea.setText(DBAppointment.reportAppointmentTypeLocation());
         }
     }
@@ -81,7 +87,7 @@ public class Reports implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
 }

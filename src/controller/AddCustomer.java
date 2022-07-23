@@ -22,16 +22,22 @@ import model.Country;
 import model.Customer;
 import model.Division;
 
+/**
+ * AddCustomer Class: Manages new customer addition
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class AddCustomer implements Initializable {
 
-    @FXML Label CustomerIDLabel;
-    @FXML Label NameLabel;
-    @FXML Label Address1Label;
-    @FXML Label FLDivisionLabel;
-    @FXML Label PostalCodeLabel;
-    @FXML Label CountryLabel;
-    @FXML Label PhoneNumberLabel;
+//    @FXML Label customerIDLabel;
+//    @FXML Label NameLabel;
+//    @FXML Label Address1Label;
+//    @FXML Label FLDivisionLabel;
+//    @FXML Label PostalCodeLabel;
+//    @FXML Label CountryLabel;
+//    @FXML Label PhoneNumberLabel;
     @FXML TextField customerIDTextField;
     @FXML TextField customerNameTextField;
     @FXML TextField addressTextField;
@@ -54,6 +60,15 @@ public class AddCustomer implements Initializable {
 
 //    public static int id;
 
+    public void clearButtonHandler(ActionEvent event) {
+        countryComboBox.getItems().clear();
+        divisionComboBox.getItems().clear();
+        customerNameTextField.clear();
+        addressTextField.clear();
+        postalCodeTextField.clear();
+        phoneNumberTextField.clear();
+    }
+
 
     @FXML
     public void saveButtonHandler(ActionEvent event) throws IOException {
@@ -62,8 +77,8 @@ public class AddCustomer implements Initializable {
         String address = addressTextField.getText();
         String postalCode = postalCodeTextField.getText();
         String phoneNumber = phoneNumberTextField.getText();
-        Division flDivision = divisionComboBox.getValue();
-        int divisionID = flDivision.getDivisionID();
+        Division division = divisionComboBox.getValue();
+        int divisionID = division.getDivisionID();
         Country country = countryComboBox.getValue();
 
         if (customerIDTextField.getText().isEmpty() || customerNameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || divisionComboBox.getSelectionModel().isEmpty()
@@ -78,7 +93,7 @@ public class AddCustomer implements Initializable {
 
         DBCustomer.addCustomer(customerName, address, postalCode, phoneNumber, divisionID);
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Main");
         stage.show();
@@ -106,7 +121,7 @@ public class AddCustomer implements Initializable {
     @FXML
     public void cancelButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Main");
         stage.show();

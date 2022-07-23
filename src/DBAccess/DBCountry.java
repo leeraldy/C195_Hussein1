@@ -8,6 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 
+/**
+ * Handles countries queries
+ */
+
 
 public class DBCountry {
 

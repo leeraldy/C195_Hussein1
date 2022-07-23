@@ -27,6 +27,12 @@ import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
 
+/**
+ * MainsScreen Class: Manages the main screen and other screens objects
+ *
+ * @author Hussein Coulibaly
+ */
+
 
 public class MainScreen implements Initializable {
 
@@ -121,7 +127,7 @@ public class MainScreen implements Initializable {
     @FXML
     public void newAppointmentButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/AddAppointmentForm.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/AddAppointmentForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Add Appointment");
         stage.show();
@@ -143,7 +149,7 @@ public class MainScreen implements Initializable {
 
         } else {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ModifyAppointment.fxml"));
+            loader.setLocation(getClass().getResource("/View/ModifyAppointment.fxml"));
             loader.load();
             ModifyAppointment controller = loader.getController();
             controller.getAppointment(selectedAppointments);
@@ -191,7 +197,7 @@ public class MainScreen implements Initializable {
     @FXML
     public void viewReportsButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/ReportsScreen.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/ReportsScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Reports");
         stage.show();
@@ -211,7 +217,7 @@ public class MainScreen implements Initializable {
     @FXML
     public void newCustomerButtonHandler(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("/view/AddCustomerForm.fxml"));
+        Parent scene = FXMLLoader.load(getClass().getResource("/View/AddCustomerForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.setTitle("Add Customer");
         stage.show();
@@ -232,7 +238,7 @@ public class MainScreen implements Initializable {
 
         } else {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ModifyCustomer.fxml"));
+            loader.setLocation(getClass().getResource("/View/ModifyCustomer.fxml"));
             loader.load();
             ModifyCustomer controller = loader.getController();
             controller.getCustomer(selectedCustomer);
@@ -315,7 +321,7 @@ public class MainScreen implements Initializable {
             customerIDColumn1.setCellValueFactory(new PropertyValueFactory<>("customerID"));
             userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
-            //lambda one for setting the time format for the column. Other lambda is in the ModifyCustomerFormController.java at line 133.
+            //lambda
             startColumn.setCellFactory(column -> {
                 TableCell<Appointment, LocalDateTime> col = new TableCell<Appointment, LocalDateTime>() {
                     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
